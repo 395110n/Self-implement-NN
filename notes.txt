@@ -1,0 +1,42 @@
+一个tensor需要requires_grad_才可以算梯度
+tensor 可以通过tensor 和 list 访问
+TensorDataset:把输入的两类数据进行一 一对应；DataLoader：重新排序
+一个星号*，表示对list解开入参
+# Sequential一个有序的容器，神经网络模块将按照在传入构造器的顺序依次被添加到计算图中执行， 
+# 同时以神经网络模块为元素的有序字典也可以作为传入参数。 (list of layers)
+
+ToTensor 会将图像数据从PIL类型变换为32位浮点数格式
+并清除255使所有像素的数值在0到1之间
+
+argmax(input, dim, keepdim): 将input tensor中最大的值找到并输出其下标
+    如果dim没有输入，则自动将input拉长为一维tensor，此时就是找到tensor中的最大值的下标
+    dim只能是int，也就是下标不能是多维的
+    keepdim和其他函数中的用法相同
+
+torch.rand(shape): 生成shape大小的tensor，里面每一个元素都是0-1之间的某个值
+torch.randn(shape): 生成shape大小的tensor，里面每一个元素都是mean=0, std=1的正态分布上的某个值
+
+pytorch 池化步幅默认与池化窗口大小相同(两个窗口之间没有相同元素)
+
+import matplotlib.pyplot as plt
+d2l.set_figsize()
+img = d2l.Image.open('../img/cat1.jpg')
+
+jpg格式图片转成tensor在转回来
+img_jpg = img
+img_tensor = torchvision.transforms.ToTensor()(img_jpg)         #转成tensor格式
+trans_to_im = torchvision.transforms.ToPILImage()(img_tensor)   #从tensor格式转回一张图片
+plt.imshow(trans_to_im)
+plt.show()
+
+torchvision.datasets.ImageFolder(<dir_path>)
+可以直接将一个文件夹的全部照片导入，但是里面的照片必须是按照标签分好类的
+
+def bbox_to_rect(bbox, color):
+    return patches.Rectangle(xy=(bbox[0], bbox[1]), 
+                             width=(bbox[2]-bbox[0]), height=(bbox[3]-bbox[1]), fill=False,
+                             edgecolor=color, linewidth=2)
+
+fig = d2l.plt.imshow(img)
+fig.axes.add_patch(bbox_to_rect(dog_bbox, 'blue'))
+fig.axes.add_patch(bbox_to_rect(cat_bbox, 'red'))
