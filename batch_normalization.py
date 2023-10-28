@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-from d2l import torch as d2l
 
 def batch_norm(X, gamma, beta, moving_mean, moving_var, eps, momentum):
     if not torch.is_grad_enabled():
@@ -38,19 +37,7 @@ class BatchNorm(nn.Module):
         Y, self.moving_mean, self.moving_var = \
         batch_norm(X, self.gamma, self.beta, self.moving_mean, self.moving_var, eps=1e-5, momentum=0.9)
         return Y
-#from scratch  
-"""net = nn.Sequential(
-    nn.Conv2d(1, 6, kernel_size=5), BatchNorm(6, num_dims=4), nn.Sigmoid(),
-    nn.MaxPool2d(kernel_size=2, stride=2), 
-    nn.Conv2d(6, 16, kernel_size=5), BatchNorm(16, num_dims=4), 
-    nn.Sigmoid(), nn.MaxPool2d(kernel_size=2, stride=2),
-    nn.Flatten(), nn.Linear(16 * 4 * 4, 120), 
-    BatchNorm(120, num_dims=2), nn.Sigmoid(), 
-    nn.Linear(120, 84), BatchNorm(84, num_dims=2),
-    nn.Sigmoid(), nn.Linear(84, 10)
-)"""
-
-#Concise
+        
 net = nn.Sequential(
     nn.Conv2d(1, 6, kernel_size=5), nn.BatchNorm2d(6), nn.Sigmoid(),
     nn.MaxPool2d(kernel_size=2, stride=2), 
@@ -61,8 +48,3 @@ net = nn.Sequential(
     nn.Linear(120, 84), nn.BatchNorm1d(84),
     nn.Sigmoid(), nn.Linear(84, 10)
 )
-
-lr, num_epochs, batch_size = 1, 10, 256
-train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)
-d2l.train_ch6(net, train_iter, test_iter, num_epochs, lr, d2l.try_gpu())
-d2l.plt.show()
