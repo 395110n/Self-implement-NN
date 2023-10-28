@@ -1,7 +1,6 @@
 import torch
 from torch import nn
 from torch.nn import functional as F
-from d2l import torch as d2l
 
 class Inception(nn.Module):
     def __init__(self, in_channels, c1, c2, c3, c4, **kwargs):
@@ -47,8 +46,3 @@ b5 = nn.Sequential(Inception(832, 256, (160, 320), (32, 128), 128),
                    nn.Flatten())
 
 net = nn.Sequential(b1, b2, b3, b4, b5, nn.Linear(1024, 10))
-
-lr, num_epochs, batch_size = 0.1, 10, 128
-train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)
-d2l.train_ch6(net, train_iter, test_iter, num_epochs, lr, device=d2l.try_gpu())
-d2l.plt.show()
