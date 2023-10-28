@@ -1,7 +1,6 @@
 import torch
 from torch import nn
-from d2l import torch as d2l
-import pyttsx3
+
 def vgg_block(num_convs, in_channels, out_channels):
     layers = []
     for _ in range(num_convs):
@@ -25,11 +24,3 @@ conv_arch = ((1, 64), (1, 128), (2, 256), (2, 512), (2, 512))
 ratio = 4
 small_conv_arch = [(pair[0], pair[1] // ratio) for pair in conv_arch]
 net = vgg(small_conv_arch)
-
-lr, num_epochs, batch_size = 0.05, 10, 128
-train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size, resize=224)
-d2l.train_ch6(net, train_iter, test_iter, num_epochs, lr, device=d2l.try_gpu())
-engine = pyttsx3.init()
-engine.say("VGG训练已完成")
-engine.runAndWait()
-d2l.plt.show()
