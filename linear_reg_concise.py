@@ -1,7 +1,6 @@
 import numpy as np
 import torch
 from torch.utils import data
-from d2l import torch as d2l
 from torch import nn
 
 def synthetic_data(w, b, num_examples):
@@ -26,16 +25,5 @@ net = nn.Sequential(nn.Linear(2, 1))
 net[0].weight.data.normal_(0, 0.01)
 net[0].bias.data.zero_()
 
-loss = nn.MSELoss()
-trainer = torch.optim.SGD(net.parameters(), lr=0.03)
-num_epochs = 3
-for epoch in range(num_epochs):
-    for X, y in data_iter:
-        l = loss(net(X), y)
-        trainer.zero_grad()
-        l.backward()
-        trainer.step()
-    l = loss(net(features), labels)
-    print(f"epoch {epoch + 1}, loss {l:f}")
 
  
