@@ -1,7 +1,6 @@
 from matplotlib import pyplot as plt 
 import random
 import torch
-from d2l import torch as d2l
 
 def synthetic_data(w, b, num_examples):
     X = torch.normal(0, 1, (num_examples, len(w)))
