@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-from d2l import torch as d2l
 
 def mypool2d(X, pool_size, mode="max"):
     p_h, p_w = pool_size
