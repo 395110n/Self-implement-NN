@@ -19,8 +19,6 @@ torch.randn(shape): 生成shape大小的tensor，里面每一个元素都是mean
 pytorch 池化步幅默认与池化窗口大小相同(两个窗口之间没有相同元素)
 
 import matplotlib.pyplot as plt
-d2l.set_figsize()
-img = d2l.Image.open('../img/cat1.jpg')
 
 jpg格式图片转成tensor在转回来
 img_jpg = img
@@ -37,6 +35,6 @@ def bbox_to_rect(bbox, color):
                              width=(bbox[2]-bbox[0]), height=(bbox[3]-bbox[1]), fill=False,
                              edgecolor=color, linewidth=2)
 
-fig = d2l.plt.imshow(img)
+fig = plt.imshow(img)
 fig.axes.add_patch(bbox_to_rect(dog_bbox, 'blue'))
 fig.axes.add_patch(bbox_to_rect(cat_bbox, 'red'))
